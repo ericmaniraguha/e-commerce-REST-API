@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const User = require('../models/User');
 const CryptoJS = require('crypto-js');
+const jwt = require('jsonwebtoken');
 
 //REGISTER
 
@@ -38,9 +39,21 @@ router.post('/login', async (req, res) => {
     loginPassword !== req.body.password &&
       res.status(401).json('Wrong credientials!');
 
+    // using a jsonwebtoken for securing our data for accessibility
+    const accessToken = jwt.sign(
+      {
+        id: userLogin._id,
+        isAdmin: userLogin.isAdmin,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: '3d' }
+    );
+
+    // send all information to the user but no password
+    const { password, ...others } = userLogin._doc;
+
     // While all data are right return
-    res.status(200).json(userLogin);
-    return;
+    res.status(200).json({ others, accessToken });
   } catch (err) {
     res.status(500).json(err);
   }
