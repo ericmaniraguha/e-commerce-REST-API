@@ -4,3 +4,4 @@
 2. npm install
 3. yarn add express nodemon mongoose dotenv
 4. yarn add crypto-js
+5. yarn add jsonwebtoken
