@@ -1,3 +1,4 @@
+const User = require('../models/User');
 const {
   verifyToken,
   verifyTokenAndAuthorization,
@@ -5,13 +6,12 @@ const {
 
 const router = require('express').Router();
 
-// UPDATE
-
+//UPDATE
 router.put('/:id', verifyTokenAndAuthorization, async (req, res) => {
   if (req.body.password) {
     req.body.password = CryptoJS.AES.encrypt(
       req.body.password,
-      process.env.PASSWORD_SECRET
+      process.env.PASS_SEC
     ).toString();
   }
 
@@ -28,4 +28,7 @@ router.put('/:id', verifyTokenAndAuthorization, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+//DELETE METHOD
+
 module.exports = router;
