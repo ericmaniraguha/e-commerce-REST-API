@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const productSchema = new mongoose.Schema(
   {
     title: {
@@ -19,15 +18,16 @@ const productSchema = new mongoose.Schema(
     categories: {
       type: Array,
     },
-    size:{
-      type:String
-    }
+    size: {
+      type: String,
+    },
     color: {
       type: String,
       required: true,
     },
     price: {
-      type:Number, required: true,
+      type: Number,
+      required: true,
     },
   },
   { timestamps: true }
